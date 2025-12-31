@@ -11,4 +11,8 @@ out/
 docs/
 
 # Dotenv file
+node_modules
 .env
+cache
+out
+broadcast
