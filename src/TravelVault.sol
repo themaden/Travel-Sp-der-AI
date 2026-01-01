@@ -30,21 +30,20 @@ contract TravelVault {
     }
 
     // --- Functions ---
-    
+
     function depositBudget() external payable {
         if (msg.value == 0) revert DepositZero();
         emit Deposit(msg.sender, msg.value);
     }
 
-    function executePurchase(
-        address payable _destination, 
-        uint256 _cost, 
-        string memory _flightId
-    ) external onlyOwnerOrAgent {
+    function executePurchase(address payable _destination, uint256 _cost, string memory _flightId)
+        external
+        onlyOwnerOrAgent
+    {
         if (address(this).balance < _cost) revert InsufficientFunds();
-        
+
         // Call kullanımı (Transfer'den daha güvenli)
-        (bool success, ) = _destination.call{value: _cost}("");
+        (bool success,) = _destination.call{value: _cost}("");
         if (!success) revert TransferFailed();
 
         emit TicketPurchased(_destination, _cost, _flightId);
@@ -52,10 +51,10 @@ contract TravelVault {
 
     function withdraw() external {
         if (msg.sender != owner) revert NotAuthorized();
-        (bool success, ) = payable(owner).call{value: address(this).balance}("");
+        (bool success,) = payable(owner).call{value: address(this).balance}("");
         if (!success) revert TransferFailed();
     }
-    
+
     // Testlerde kolaylık olsun diye
     receive() external payable {}
 }

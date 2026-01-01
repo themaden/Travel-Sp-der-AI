@@ -17,8 +17,7 @@ export const agentWallet = new ethers.Wallet(process.env.AGENT_PRIVATE_KEY, prov
 // 3. Kontrat ABI (Foundry build klasöründen otomatik alınabilir ama şimdilik manuel basit veriyoruz)
 // Not: Gerçek projede bunu "out/TravelVault.sol/TravelVault.json" dosyasından okuruz.
 export const VAULT_ABI = [
-    "function executePurchase(address payable _destination, uint256 _cost, string _flightId) external",
-    "function getBalance() external view returns (uint256)"
+    "function executePurchase(address payable _destination, uint256 _cost, string _flightId) external"
 ];
 
 console.log(`✅ Blockchain connection established. Agent: ${agentWallet.address}`);
